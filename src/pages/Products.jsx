@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Filter, Grid3X3, LayoutList, ChevronDown, X } from 'lucide-react';
 import { products, categories } from '../data/mockData';
@@ -7,7 +7,6 @@ import './Products.css';
 
 const Products = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [filteredProducts, setFilteredProducts] = useState([]);
   const [viewMode, setViewMode] = useState('grid');
   const [showFilters, setShowFilters] = useState(false);
   const [sortBy, setSortBy] = useState('featured');
@@ -18,8 +17,8 @@ const Products = () => {
   const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '');
   const [selectedRating, setSelectedRating] = useState(0);
   const [showDiscounted, setShowDiscounted] = useState(false);
-
-  useEffect(() => {
+  
+  const filteredProducts = useMemo(() => {
     let result = [...products];
     
     // Filter by search query
@@ -72,7 +71,7 @@ const Products = () => {
         break;
     }
     
-    setFilteredProducts(result);
+    return result;
   }, [searchQuery, selectedCategory, priceRange, selectedRating, showDiscounted, sortBy]);
 
   const handleCategoryChange = (category) => {

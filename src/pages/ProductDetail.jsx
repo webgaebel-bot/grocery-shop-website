@@ -16,26 +16,23 @@ const ProductDetail = () => {
   const { addToCart } = useCart();
   const { success } = useToast();
   
-  const [product, setProduct] = useState(null);
-  const [relatedProducts, setRelatedProducts] = useState([]);
+  const foundProduct = products.find(p => p.id === parseInt(id));
+  
+  useEffect(() => {
+    if (!foundProduct) {
+      navigate('/products');
+    }
+  }, [foundProduct, navigate]);
+
+  const product = foundProduct;
+  const relatedProducts = foundProduct 
+    ? products.filter(p => p.category === foundProduct.category && p.id !== foundProduct.id).slice(0, 4)
+    : [];
+
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
   const [activeTab, setActiveTab] = useState('description');
   const [isWishlisted, setIsWishlisted] = useState(false);
-
-  useEffect(() => {
-    const foundProduct = products.find(p => p.id === parseInt(id));
-    if (foundProduct) {
-      setProduct(foundProduct);
-      // Get related products from same category
-      const related = products
-        .filter(p => p.category === foundProduct.category && p.id !== foundProduct.id)
-        .slice(0, 4);
-      setRelatedProducts(related);
-    } else {
-      navigate('/products');
-    }
-  }, [id, navigate]);
 
   const handleAddToCart = () => {
     for (let i = 0; i < quantity; i++) {

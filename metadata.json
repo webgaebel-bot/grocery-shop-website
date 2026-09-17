@@ -1,0 +1,6 @@
+{
+  "name": "FreshCart - Online Grocery Store",
+  "description": "FreshCart - Your trusted online grocery store with fresh produce and quality products",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

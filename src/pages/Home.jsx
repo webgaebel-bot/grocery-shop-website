@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Truck, Shield, Clock, Headphones, Star, TrendingUp, Percent } from 'lucide-react';
 import { products, categories } from '../data/mockData';
@@ -6,23 +6,9 @@ import ProductCard from '../components/common/ProductCard';
 import './Home.css';
 
 const Home = () => {
-  const [featuredProducts, setFeaturedProducts] = useState([]);
-  const [newArrivals, setNewArrivals] = useState([]);
-  const [topRated, setTopRated] = useState([]);
-
-  useEffect(() => {
-    // Get featured products
-    const featured = products.filter(p => p.featured).slice(0, 4);
-    setFeaturedProducts(featured);
-
-    // Get new arrivals (last 4 products)
-    const arrivals = [...products].reverse().slice(0, 4);
-    setNewArrivals(arrivals);
-
-    // Get top rated products
-    const rated = [...products].sort((a, b) => b.rating - a.rating).slice(0, 4);
-    setTopRated(rated);
-  }, []);
+  const [featuredProducts] = useState(() => products.filter(p => p.featured).slice(0, 4));
+  const [newArrivals] = useState(() => [...products].reverse().slice(0, 4));
+  const [topRated] = useState(() => [...products].sort((a, b) => b.rating - a.rating).slice(0, 4));
 
   return (
     <div className="home-page">

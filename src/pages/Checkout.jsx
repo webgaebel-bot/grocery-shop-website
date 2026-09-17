@@ -11,13 +11,14 @@ import './Checkout.css';
 
 const Checkout = () => {
   const navigate = useNavigate();
-  const { cartItems, getSubtotal, getTotal, getDiscountAmount, clearCart } = useCart();
+  const { cartItems, getSubtotal, getDiscountAmount, clearCart } = useCart();
   const { user } = useAuth();
-  const { success, error } = useToast();
+  const { success } = useToast();
   
   const [step, setStep] = useState(1);
   const [isProcessing, setIsProcessing] = useState(false);
   const [orderComplete, setOrderComplete] = useState(false);
+  const [orderId, setOrderId] = useState('');
   
   const [shippingInfo, setShippingInfo] = useState({
     firstName: user?.name?.split(' ')[0] || '',
@@ -68,6 +69,7 @@ const Checkout = () => {
     await new Promise(resolve => setTimeout(resolve, 2000));
     
     setIsProcessing(false);
+    setOrderId('ORD-' + Math.random().toString(36).substr(2, 9).toUpperCase());
     setOrderComplete(true);
     clearCart();
     success('Order placed successfully!');
@@ -86,7 +88,7 @@ const Checkout = () => {
             <div className="order-details">
               <div className="detail-row">
                 <span>Order Number</span>
-                <strong>ORD-{Math.random().toString(36).substr(2, 9).toUpperCase()}</strong>
+                <strong>{orderId}</strong>
               </div>
               <div className="detail-row">
                 <span>Total Amount</span>

@@ -89,6 +89,7 @@ const Register = () => {
       }
     } catch (err) {
       error('An error occurred. Please try again.');
+      console.error(err);
     } finally {
       setIsLoading(false);
     }

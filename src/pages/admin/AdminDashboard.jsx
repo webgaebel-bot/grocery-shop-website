@@ -29,10 +29,10 @@ const AdminDashboard = () => {
     { id: 'settings', label: 'Settings', icon: Settings },
   ];
 
-  const StatCard = ({ title, value, icon: Icon, trend, trendUp }) => (
+  const StatCard = ({ title, value, icon: IconComponent, trend, trendUp }) => (
     <div className="stat-card">
       <div className="stat-icon">
-        <Icon size={24} />
+        <IconComponent size={24} />
       </div>
       <div className="stat-info">
         <h3>{title}</h3>
